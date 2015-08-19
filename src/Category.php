@@ -46,6 +46,11 @@
             return $tasks;
         }
 
+        function update($new_name)
+        {
+            $GLOBALS['DB']->exec("UPDATE categories SET name = '{new_name}' WHERE id = {$this->getId()};");
+        }
+
         static function getAll()
         {
             $returned_categories = $GLOBALS['DB']->query("SELECT * FROM categories;");

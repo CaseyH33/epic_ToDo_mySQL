@@ -34,6 +34,8 @@
                 <button type='submit' class="btn btn-success">Add task</button>
             </form>
 
+            <p><a class="btn btn-warning" href='/categories/{{ category.getId }}/edit'>Edit</a></p>
+
             <form action='/delete_tasks' method='post'>
                 <input id="category_id" name="category_id" type="hidden" value="{{ category.getId() }}">
                 <button type='submit' class="btn btn-danger">Clear Tasks</button>
