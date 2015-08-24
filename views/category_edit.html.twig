@@ -13,7 +13,15 @@
           <label for="name">Rename your category:</label>
           <input id="name" name="name" type="text">
 
-          <button type="submit">Update</button>
+          <button type="submit" class="submit">Update</button>
+        </form>
+
+        <form action="/categories/{{ category.getId }}" method="post">
+            <input name="_method" type="hidden" value="delete">
+            <button type="submit" class="btn btn-danger">Delete this category</button>
+        </form>
+        <form action="/">
+            <button type='submit' class='btn btn-info'>Home</button>
         </form>
     </div>
 </body>

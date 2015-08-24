@@ -20,11 +20,13 @@
                         <ul><li class="due">{{ task.getDueDate }}</li></ul>
                         <br>
                     {% endfor %}
+            {% else %}
+                <h4>There are no tasks for this categories!</h4>
             {% endif %}
 
             <h4>Add a task to this category</h4>
 
-            <form action='/add_tasks' method='post'?
+            <form action='/add_tasks' method='post'>
                 <input id="category_id" name="category_id" type="hidden" value="{{ category.getId }}">
                 <label for="task_id">Select a task</label>
                 <select id='task_id' name='task_id' type='text'>
@@ -35,15 +37,13 @@
                 <button type='submit' class='btn btn-success'>Add task</button>
             </form>
 
-            <p><a class="btn btn-warning" href='/categories/{{ category.getId }}/edit'>Edit</a></p>
-
-            <form action='/delete_tasks' method='post'>
-                <input id="category_id" name="category_id" type="hidden" value="{{ category.getId() }}">
-                <button type='submit' class="btn btn-danger">Clear Tasks</button>
+            <form action='/categories/{{ category.getId }}/edit'>
+                <button type='submit' class="btn btn-warning">Edit</button>
             </form>
 
-
-            <p><a class="btn btn-primary" href='/'>Home</a></p>
+            <form action="/">
+                <button type='submit' class='btn btn-info'>Home</button>
+            </form>
         </div>
 </body>
 </html>

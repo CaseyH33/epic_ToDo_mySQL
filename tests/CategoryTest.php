@@ -193,6 +193,8 @@
 
             $this->assertEquals([], $test_task->getCategories());
         }
+
+        
     }
 
 ?>
