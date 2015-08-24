@@ -62,9 +62,15 @@
             $this->setName($new_name);
         }
 
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM categories WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM categories_tasks WHERE category_id = {$this->getId()};");
+        }
+
         static function getAll()
         {
-            $returned_categories = $GLOBALS['DB']->query("SELECT * FROM categories;");
+            $returned_categories = $GLOBALS['DB']->query("SELECT * FROM categories ORDER BY name;");
             $categories = array();
             foreach($returned_categories as $category) {
                 $name = $category['name'];
