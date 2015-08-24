@@ -1,6 +1,8 @@
 <html>
 <head>
     <title>To Do List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
 </head>
 <body>
     <h1>To Do List</h1>
@@ -8,16 +10,21 @@
         <p>Here are all your tasks:</p>
         <ul>
             {% for task in tasks %}
-                <li>{{ task.getDescription }}</li>
+                <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
 
+    <h4>Add a task</h4>
+
     <form action='/tasks' method='post'>
+        <input id="category_id" name="category_id" type="hidden" value="{{ category.getId() }}">
         <label for='description'>Task Description</label>
         <input id='description' name='description' type='text'>
+        <label for='due_date'>Due Date</label>
+        <input id='due_date' name='due_date' type='date'>
 
-        <button type='submit'>Add task</button>
+        <button type='submit' class="btn btn-success">Add task</button>
     </form>
 
     <form action='/delete_tasks' method='post'>
