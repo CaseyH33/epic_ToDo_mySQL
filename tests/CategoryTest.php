@@ -49,6 +49,48 @@
             $this->assertEquals(true, is_numeric($result));
         }
 
+        function testAddTask()
+        {
+            $name = "Work stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "File reports";
+            $id2 = 2;
+            $due_date = "2000-01-01";
+            $test_task = new Task($description, $id2, $due_date);
+            $test_task->save();
+
+            $test_category->addTask($test_task);
+
+            $this->assertEquals($test_category->getTasks(), [$test_task]);
+
+        }
+
+        function testGetTasks()
+        {
+            $name = "Home stuff";
+            $id = 1;
+            $test_category = new Category($name, $id);
+            $test_category->save();
+
+            $description = "Wash the dog";
+            $id2 = 2;
+            $test_task = new Task($description, $id2, "2000-01-01");
+            $test_task->save();
+
+            $description2 = "Take out the trash";
+            $id3 = 3;
+            $test_task2 = new Task($description2, $id3, "2000-01-01");
+            $test_task2->save();
+
+            $test_category->addTask($test_task);
+            $test_category->addTask($test_task2);
+
+            $this->assertEquals($test_category->getTasks(), [$test_task, $test_task2]);
+        }
+
         function test_save()
         {
             //Arrange
@@ -115,36 +157,11 @@
             $this->assertEquals($test_Category, $result);
         }
 
-        function test_getTasks()
-        {
-            //Arrange
-            $name = "Work stuff";
-            $id = null;
-            $test_category = new Category($name, $id);
-            $test_category->save();
-
-            $test_category_id = $test_category->getId();
-
-            $description = "Email client";
-            $test_task = new Task($description, $id, $test_category_id);
-            $test_task->save();
-
-            $description2 = "Meet with boss";
-            $test_task2 = new Task($description2, $id, $test_category_id);
-            $test_task2->save();
-
-            //Act
-            $result = $test_category->getTasks();
-
-            //Assert
-            $this->assertEquals([$test_task, $test_task2], $result);
-        }
-
         function testUpdate()
         {
             //Arrange
             $name = "Work stuff";
-            $id = null;
+            $id = 1;
             $test_category = new Category($name, $id);
             $test_category->save();
 
