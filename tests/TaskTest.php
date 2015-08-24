@@ -182,7 +182,7 @@
 
             $new_description = "Clean the dog";
 
-            $test_task->update($new_description, $due_date);
+            $test_task->update($new_description, $due_date, 0);
 
             $this->assertEquals("Clean the dog", $test_task->getDescription());
         }
@@ -202,7 +202,7 @@
 
             $test_task->addCategory($test_category);
             $test_task->delete();
-        
+
             $this->assertEquals([], $test_category->getTasks());
         }
     }

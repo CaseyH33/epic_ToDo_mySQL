@@ -5,33 +5,47 @@
 
 </head>
 <body>
-    <h1>To Do List</h1>
-    {% if tasks is not empty %}
-        <p>Here are all your tasks:</p>
-        <ul>
-            {% for task in tasks %}
-                <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
-                <ul><li>{{ task.getDueDate }}</li></ul>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="container">
+        <h1>To Do List</h1>
+        {% if tasks is not empty %}
+            <h3>Here are all your tasks:</h3>
+            <h5>Uncompleted tasks</h5>
+            <ul>
+                {% for task in tasks %}
+                    {% if task.getCompleted == 0 %}
+                        <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+                        <ul><li>{{ task.getDueDate }}</li></ul>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <h5>Completed tasks</h5>
+            <ul>
+                {% for task in tasks %}
+                    {% if task.getCompleted == 1 %}
+                        <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+                        <ul><li>{{ task.getDueDate }}</li></ul>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-    <h4>Add a task</h4>
+        <h4>Add a task</h4>
 
-    <form action='/tasks' method='post'>
-        <label for='description'>Task Description</label>
-        <input id='description' name='description' type='text'>
-        <label for='due_date'>Due Date</label>
-        <input id='due_date' name='due_date' type='date'>
+        <form action='/tasks' method='post'>
+            <label for='description'>Task Description</label>
+            <input id='description' name='description' type='text'>
+            <label for='due_date'>Due Date</label>
+            <input id='due_date' name='due_date' type='date'>
 
-        <button type='submit' class="btn btn-success">Add task</button>
-    </form>
+            <button type='submit' class="btn btn-success">Add task</button>
+        </form>
 
-    <form action='/delete_tasks' method='post'>
-        <button type='submit' class='btn btn-danger'>Delete all tasks</button>
-    </form>
-    <form action="/">
-        <button type='submit' class='btn btn-info'>Home</button>
-    </form>
+        <form action='/delete_tasks' method='post'>
+            <button type='submit' class='btn btn-danger'>Delete all tasks</button>
+        </form>
+        <form action="/">
+            <button type='submit' class='btn btn-info'>Home</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -135,8 +135,9 @@
     $app->patch("/tasks/{id}", function($id) use ($app) {
         $description = $_POST['description'];
         $due_date = $_POST['due_date'];
+        $completed = $_POST['completed'];
         $task = Task::find($id);
-        $task->update($description, $due_date);
+        $task->update($description, $due_date, $completed);
         return $app['twig']->render('task.html.twig', array('task' => $task, 'tasks' => Task::getAll(), 'categories' => $task->getCategories(), 'all_categories' => Category::getAll()));
     });
 

@@ -4,12 +4,14 @@ class Task
     private $description;
     private $id;
     private $due_date;
+    private $completed;
 
-    function __construct($description, $id=null, $due_date)
+    function __construct($description, $id=null, $due_date, $completed = 0)
     {
         $this->description = $description;
         $this->id =$id;
         $this->due_date = $due_date;
+        $this->completed = $completed;
     }
 
     function setDescription($new_description)
@@ -37,17 +39,28 @@ class Task
         $this->due_date = $new_due_date;
     }
 
+    function getCompleted()
+    {
+        return $this->completed;
+    }
+
+    function setCompleted($new_completed)
+    {
+        $this->completed = $new_completed;
+    }
+
     function save()
     {
-        $statement = $GLOBALS['DB']->exec("INSERT INTO tasks (description, due_date) VALUES ('{$this->getDescription()}', '{$this->getDueDate()}');");
+        $statement = $GLOBALS['DB']->exec("INSERT INTO tasks (description, due_date, completed) VALUES ('{$this->getDescription()}', '{$this->getDueDate()}', {$this->getCompleted()});");
         $this->id = $GLOBALS['DB']->lastInsertId();
     }
 
-    function update($new_description, $new_due_date)
+    function update($new_description, $new_due_date, $new_completed)
     {
-        $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_description}', due_date = '{$new_due_date}' WHERE id = {$this->getId()};");
+        $GLOBALS['DB']->exec("UPDATE tasks SET description = '{$new_description}', due_date = '{$new_due_date}', completed = {$new_completed} WHERE id = {$this->getId()};");
         $this->setDescription($new_description);
         $this->setDueDate($new_due_date);
+        $this->setCompleted($new_completed);
     }
 
     function addCategory($category)
@@ -102,10 +115,10 @@ class Task
             $description = $task['description'];
             $id = $task['id'];
             $due_date = $task['due_date'];
-            $new_task = new Task($description, $id, $due_date);
+            $completed = $task['completed'];
+            $new_task = new Task($description, $id, $due_date, $completed);
             array_push($tasks, $new_task);
         }
-
         return $tasks;
     }
 

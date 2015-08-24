@@ -1,25 +1,32 @@
 <html>
     <head>
         <title>To Do List</title>
-
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <style>
-        .due{
-            color : red;
-        }
-        </style>
     </head>
     <body>
         <div class="container">
             <h1>{{ category.getName }}</h1>
 
             {% if tasks is not empty %}
-                <h4>List of tasks:</h4>
+                <h3>Here are all your tasks:</h3>
+                <h5>Uncompleted tasks</h5>
+                <ul>
                     {% for task in tasks %}
-                        <p><strong>{{ task.getDescription }}<strong></p>
-                        <ul><li class="due">{{ task.getDueDate }}</li></ul>
-                        <br>
+                        {% if task.getCompleted == 0 %}
+                            <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+                            <ul><li>{{ task.getDueDate }}</li></ul>
+                        {% endif %}
                     {% endfor %}
+                </ul>
+                <h5>Completed tasks</h5>
+                <ul>
+                    {% for task in tasks %}
+                        {% if task.getCompleted == 1 %}
+                            <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+                            <ul><li>{{ task.getDueDate }}</li></ul>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             {% else %}
                 <h4>There are no tasks for this categories!</h4>
             {% endif %}

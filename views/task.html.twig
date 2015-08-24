@@ -6,7 +6,14 @@
     <body>
         <div class="container">
             <h1>{{ task.getDescription }}</h1>
-            <ul><li><h4>Due Date: {{ task.getDueDate }}</li></h4></ul>
+            <ul><li><h4>Due Date: {{ task.getDueDate }}</li></h4>
+            <li>Completed:
+                {% if task.getCompleted == 0 %}
+                    No
+                {% else %}
+                    Yes
+                {% endif %}</li>
+                </ul>
 
             {% if categories is not empty %}
                 <p>Here are the categories for this task:</p>

@@ -16,6 +16,17 @@
           <label for='due_date'>Due Date</label>
           <input id='due_date' name='due_date' type='date' value='{{ task.getDueDate }}'>
 
+          <label for='completed'>Task Completed?</label>
+          <select id='completed' name='completed'>
+              {% if task.getCompleted == 0 %}
+                <option selected="selected" value=0>No</option>
+                <option value=1>Yes</option>
+            {% else %}
+                <option value=0>No</option>
+                <option selected="selected" value=1>Yes</option>
+            {% endif %}
+          </select>
+
           <button type="submit" class="submit">Update</button>
         </form>
 
