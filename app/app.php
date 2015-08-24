@@ -127,6 +127,19 @@
         return $app['twig']->render('category.html.twig', array('category' => $category, 'all_tasks' => Task::getAll(), 'tasks' => $category->getTasks()));
     });
 
+    $app->get("/tasks/{id}/edit", function($id) use ($app) {
+        $task = Task::find($id);
+        return $app['twig']->render('task_edit.html.twig', array('task' => $task, 'all_categories' => Category::getAll()));
+    });
+
+    $app->patch("/tasks/{id}", function($id) use ($app) {
+        $description = $_POST['description'];
+        $due_date = $_POST['due_date'];
+        $task = Task::find($id);
+        $task->update($description, $due_date);
+        return $app['twig']->render('task.html.twig', array('task' => $task, 'tasks' => Task::getAll(), 'categories' => $task->getCategories(), 'all_categories' => Category::getAll()));
+    });
+
     $app->delete("/categories/{id}", function($id) use ($app) {
         $category = Category::find($id);
         $category->delete();

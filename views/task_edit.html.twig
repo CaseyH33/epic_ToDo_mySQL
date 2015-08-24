@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Update the {{ task.getDescription }} task </h1>
+
+        <form action="/tasks/{{ task.getId }}" method="post">
+          <input name="_method" type="hidden" value="patch">
+
+          <label for="description">Rename your task:</label>
+          <input id="description" name="description" type="text" value='{{ task.getDescription }}'>
+
+          <label for='due_date'>Due Date</label>
+          <input id='due_date' name='due_date' type='date' value='{{ task.getDueDate }}'>
+
+          <button type="submit" class="submit">Update</button>
+        </form>
+
+        <h4>Add a category to this task:</h4>
+
+        <form action='/add_categories' method='post'>
+            <input id="task_id" name="task_id" type="hidden" value="{{ task.getId }}">
+            <label for="category_id">Select a category</label>
+            <select id='category_id' name = 'category_id' type='text'>
+                {% for category in all_categories %}
+                    <option value="{{ category.getId }}">{{ category.getName }}</option>
+                {% endfor %}
+            </select>
+            <button type='submit' class="btn btn-submit">Add category</button>
+        </form>
+
+        <form action="/tasks/{{ task.getId }}" method="post">
+            <input name="_method" type="hidden" value="delete">
+            <button type="submit" class="btn btn-danger">Delete this task</button>
+        </form>
+        <form action="/">
+            <button type='submit' class='btn btn-info'>Home</button>
+        </form>
+    </div>
+</body>
+</html>
